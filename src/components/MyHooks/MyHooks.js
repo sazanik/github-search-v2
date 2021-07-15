@@ -34,9 +34,7 @@ function MyHooks() {
       <button className='btn-warning' onClick={() => input.clear()}>Clear</button>
       <hr/>
       <h1>{input.value}</h1>
-
     </div>
-
   )
 }
 

@@ -1,13 +1,11 @@
 import React from "react";
-import {Container} from "react-bootstrap";
+import {Container, Spinner} from "react-bootstrap";
 import {Card} from "../components/Card";
+import {useGithub} from "../context/github/GithubState";
 
 
 export const Home = () => {
-  const cards = new Array(20)
-    .fill('')
-    .map((_, i) => i)
-  console.log(cards)
+  const {users, loading} = useGithub()
 
   return (
     <div className="Home">
@@ -15,13 +13,17 @@ export const Home = () => {
       <Container>
         <h1>Home page</h1>
         <div className="row">
-          {cards.map(card => (
-            <div className="col-sm-4 mb-4" key={card}>
-              <Card/>
-            </div>
-          ))}
+          {loading
+            ? <Spinner animation="border" className='ms-3'/>
+            : users.map(user => (
+              <div className="col-sm-4 mb-4" key={user.id}>
+                <Card user={user}/>
+              </div>
+            ))
+          }
         </div>
       </Container>
     </div>
   )
 }
+

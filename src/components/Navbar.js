@@ -2,18 +2,22 @@ import React, {useState} from "react";
 import {Navbar, Container, Nav, Form, FormControl} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {useAlert} from "../context/alert/AlertState";
+import {useGithub} from "../context/github/GithubState";
 
 
 export const NavbarComp = () => {
   const [value, setValue] = useState('')
-  const {show} = useAlert()
+  const {show, hide} = useAlert()
+  const {search} = useGithub()
 
   const onSubmit = e => {
     if (e.key !== 'Enter') return
 
     if (value.trim()) {
+      hide()
+      search(value.trim())
       console.log('Request on server')
-    } else show("Enter user's nickname", 'danger')
+    } else show("Enter user's nickname", 'warning')
   }
 
   return (

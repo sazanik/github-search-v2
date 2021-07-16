@@ -1,9 +1,18 @@
 import React, {createContext, useContext, useReducer} from "react";
 import {githubReducer} from "./githubReducer";
 import {CLEAR_USERS, GET_REPOS, GET_USER, SEARCH_USERS, SET_LOADING} from "../types";
+import axios from "axios";
 
 const GithubContext = createContext('It is default CONTEXT for GITHUB')
 export const useGithub = () => useContext(GithubContext)
+
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+
+const withCreds = url => {
+  return `${url}client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+}
+
 
 export const GithubState = ({children}) => {
 
@@ -22,17 +31,26 @@ export const GithubState = ({children}) => {
 
   const search = async value => {
     setLoading()
-    dispatch({type: SEARCH_USERS, payload: []})
+
+    const res = await axios.get(withCreds(`https://api.github.com/search/users?q=${value}&`))
+
+    dispatch({type: SEARCH_USERS, payload: res.data.items})
   }
 
-  const getUser = async name => {
+  const getUser = async value => {
     setLoading()
-    dispatch({type: GET_USER, payload: {}})
+
+    const res = await axios.get(withCreds(`https://api.github.com/users/${value}?`))
+
+    dispatch({type: GET_USER, payload: res.data})
   }
 
-  const getRepos = async name => {
+  const getRepos = async value => {
     setLoading()
-    dispatch({type: GET_REPOS, payload: {}})
+
+    const res = await axios.get(withCreds(`https://api.github.com/users/${value}/repos?per_page=100&`))
+
+    dispatch({type: GET_REPOS, payload: res.data})
   }
 
   const clearUsers = () => dispatch({type: CLEAR_USERS})

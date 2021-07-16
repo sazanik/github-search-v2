@@ -3,25 +3,35 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
-import {NavbarComp} from "./components/Navbar/Navbar";
 
-import {Home} from "./pages/Home/Home";
-import {About} from "./pages/About/About";
-import {Profile} from "./pages/Profile/Profile";
+import {NavbarComp} from "./components/Navbar";
+import {Home} from "./pages/Home";
+import {About} from "./pages/About";
+import {Profile} from "./pages/Profile";
+import {Alert} from "./components/Alert";
+import {Container} from "react-bootstrap";
+import {AlertState} from "./context/alert/AlertState";
+import {GithubState} from "./context/github/GithubState";
+
 
 function App() {
   return (
-    <Router>
-      <NavbarComp/>
-      <Switch>
-        <Route path='/' exact component={Home}/>
-        <Route path='/about' component={About}/>
-        <Route path='/profile/:name'  component={Profile}/>
-      </Switch>
-
-    </Router>
+    <GithubState>
+      <AlertState>
+        <Router>
+          <NavbarComp/>
+          <Container>
+            <Alert alert={{text: 'Alert'}}/>
+          </Container>
+          <Switch>
+            <Route path='/' exact component={Home}/>
+            <Route path='/about' component={About}/>
+            <Route path='/profile/:name' component={Profile}/>
+          </Switch>
+        </Router>
+      </AlertState>
+    </GithubState>
   )
 }
 

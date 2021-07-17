@@ -3,6 +3,8 @@ import {alertReducer} from "./alertReducer";
 import {HIDE_ALERT, SHOW_ALERT} from "../types";
 
 const AlertContext = createContext('It is default CONTEXT for ALERT')
+AlertContext.displayName = 'ALERT'
+
 export const useAlert = () => useContext(AlertContext)
 
 export const AlertState = ({children}) => {

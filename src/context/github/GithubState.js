@@ -4,6 +4,7 @@ import {CLEAR_USERS, GET_REPOS, GET_USER, SEARCH_USERS, SET_LOADING} from "../ty
 import axios from "axios";
 
 const GithubContext = createContext('It is default CONTEXT for GITHUB')
+GithubContext.displayName = 'GITHUB'
 export const useGithub = () => useContext(GithubContext)
 
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET
@@ -12,7 +13,6 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const withCreds = url => {
   return `${url}client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
 }
-
 
 export const GithubState = ({children}) => {
 

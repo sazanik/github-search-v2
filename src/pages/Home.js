@@ -11,12 +11,11 @@ export const Home = () => {
     <div className="Home">
 
       <Container>
-        <h1>Home page</h1>
-        <div className="row">
+        <div className="row mt-4">
           {loading
             ? <Spinner animation="border" className='ms-3'/>
             : users.map(user => (
-              <div className="col-sm-4 mb-4" key={user.id}>
+              <div className="col-sm-2 mb-4" key={user.id}>
                 <Card user={user}/>
               </div>
             ))

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Repos = ({repos}) => {
+export const Repos = ({repos}) => {
   return (
     repos.map(repo => (
       <div className="card mb-4" key={repo.id}>
@@ -15,6 +15,5 @@ const Repos = ({repos}) => {
         </div>
       </div>
     ))
-
   )
 }

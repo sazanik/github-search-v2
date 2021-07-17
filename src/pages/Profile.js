@@ -2,6 +2,8 @@ import React, {useEffect} from "react";
 import {Container, Spinner} from "react-bootstrap";
 import {useGithub} from "../context/github/GithubState";
 import {Link} from "react-router-dom";
+import {Repos} from '../components/Repos'
+
 
 export const Profile = ({match}) => {
   const {getUser, getRepos, loading, user, repos} = useGithub()
@@ -10,6 +12,7 @@ export const Profile = ({match}) => {
   useEffect(() => {
     getUser(nameUrl)
     getRepos(nameUrl)
+    // eslint-disable-next-line
   }, [])
 
   const {
@@ -76,7 +79,7 @@ export const Profile = ({match}) => {
               </div>
             </div>
           </div>
-          <Repos/>
+         <Repos repos={repos}/>
         </>
       }
 
